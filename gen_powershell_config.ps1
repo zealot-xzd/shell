@@ -24,7 +24,6 @@ Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name la -Value Get-ChildItem
 Set-Alias -Name l -Value Get-ChildItem
 Set-Alias -Name pwd -Value Get-Location
-Set-Alias -Name mkdir -Value New-Item
 Set-Alias -Name rmdir -Value Remove-Item
 Set-Alias -Name rm -Value Remove-Item
 Set-Alias -Name mv -Value Move-Item
@@ -602,7 +601,7 @@ function reload-profile {
 
 function myaliases {
     Write-Host "========== 命令别名 ==========" -ForegroundColor Cyan
-    Get-Alias | Where-Object { $_.Name -in @('ls','ll','la','l','cd','pwd','mkdir','rmdir','rm','cp','mv','cat','grep','ps','kill','df','du','which','clear','cls','echo') } | Format-Table Name, DisplayName -AutoSize
+    Get-Alias | Where-Object { $_.Name -in @('ls','ll','la','l','cd','pwd','rmdir','rm','cp','mv','cat','grep','ps','kill','df','du','which','clear','cls','echo') } | Format-Table Name, DisplayName -AutoSize
 }
 
 function myfunctions {
