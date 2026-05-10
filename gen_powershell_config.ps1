@@ -126,22 +126,17 @@ function ls-color {
 
 # 开启代理
         function proxy {
-            param(
-                [string]$Type = "socks5",  # http, https, socks5
-                [string]$Host_Ip = "127.0.0.1",
-                [int]$Port = 1080
-            )
-            
-            $proxyAddr = "${Type}://${Host_Ip}:${Port}"
 
-            $env:HTTP_PROXY = $proxyAddr
-            $env:HTTPS_PROXY = $proxyAddr
+            $env:HTTP_PROXY = "http://127.0.0.1:10801"
+            $env:HTTPS_PROXY = "http://127.0.0.1:10801"
+            $env:ALL_PROXY="socks5://127.0.0.1:1080"
             $env:NO_PROXY = "localhost,127.0.0.1,::1"
             Write-Host "代理已开启: $proxyAddr" -ForegroundColor Green
         }
 
 # 关闭代理
         function noproxy {
+            Remove-Item Env:ALL_PROXY -ErrorAction SilentlyContinue
             Remove-Item Env:HTTP_PROXY -ErrorAction SilentlyContinue
             Remove-Item Env:HTTPS_PROXY -ErrorAction SilentlyContinue
             Remove-Item Env:NO_PROXY -ErrorAction SilentlyContinue
@@ -153,6 +148,7 @@ function ls-color {
             if ($env:HTTP_PROXY) {
                 Write-Host "HTTP_PROXY: $env:HTTP_PROXY" -ForegroundColor Cyan
                 Write-Host "HTTPS_PROXY: $env:HTTPS_PROXY" -ForegroundColor Cyan
+                Write-Host "ALL_PROXY: $env:HTTPS_PROXY" -ForegroundColor Cyan
             } else {
                 Write-Host "代理未设置" -ForegroundColor Gray
             }
